@@ -1,13 +1,10 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-
 }
 
 hr{
-
     width: 500px;
-
 }
 
 #board{
@@ -16,26 +13,21 @@ hr{
     background-color: #cdc1b5;
     border: 6px solid #bbada0;
 
-    margin:0 auto;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-
-
 }
 
 audio{
-
     font-size: 40px;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 
 .tile{
-
     width: 90px;
     height: 90px;
     border: 5px solid #bbada0;
@@ -45,25 +37,23 @@ audio{
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
+/*Colores de los cuadros*/
 .x2 {
-background-color: rgb(225, 0, 255);
-color: #727371;
+    background-color: rgb(225, 0, 255);
+    color: #727371;
 }
-
 
 .x4 {
     background-color: rgba(182, 2, 206, 0.925);
     color: #727371;
 }
-
 .x8 {
     background-color: rgb(143, 0, 161);
     color: #727371;
 }
-    
+
 .x16{
     background-color: #6e0065;
     color: white;
