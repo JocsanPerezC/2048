@@ -3,23 +3,30 @@ var score = 0;
 var filas = 4;
 var columnas = 4;
 var contador = 0;
+var tiles = 0;
+
+var Interval;
+var seconds = 00; 
+var tens = 00; 
+
 window.onload = function() {
     setGame();
 
-    var seconds = 00; 
-    var tens = 00; 
     var appendTens = document.getElementById("tens")
     var appendSeconds = document.getElementById("seconds")
-    var Interval ;
 
     document.addEventListener("keyup", function(event) {
         if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown')  {
+            if (!hasEmptyTile()) { //si es falso, sale, para parar el tiempo
+                clearInterval(Interval);
+                return;
+            }
             clearInterval(Interval);
-            Interval = setInterval(startTimer, 10);
+            Interval = setInterval(startTimer, 10);           
         }
     });
     
-    function startTimer () {
+    function startTimer() {
         tens++; 
         if(tens <= 9){
             appendTens.innerHTML = "0" + tens;
@@ -80,30 +87,29 @@ function updateTile(tile, num) {
 document.addEventListener('keyup', (e) => {
     if (e.code == "ArrowLeft") {
         slideLeft();
-        setTwo();
+        setTwo();    
+        moves();
+        
 
     }
     else if (e.code == "ArrowRight") {
         slideRight();
-        setTwo();
-        
+        setTwo();      
+        moves();
     }
     else if (e.code == "ArrowUp") {
         slideUp();
-        setTwo();
-        
-
+        setTwo();      
+        moves();
     }
     else if (e.code == "ArrowDown") {
+        moves();
         slideDown();
         setTwo();
         
     }
 
-    contador++; //para sumar los movientos
-    sld = document.getElementById("salida");
-    sld.innerHTML = contador;
-
+    tilesOnBoard();
     document.getElementById("score").innerText = score;
 })
 
@@ -187,7 +193,7 @@ function slideDown() {
 }
 
 function setTwo() {
-    if (!hasEmptyTile()) {
+    if (!hasEmptyTile()) { //si es falso, sale
         return;
     }
     let found = false;
@@ -205,7 +211,6 @@ function setTwo() {
 }
 
 function hasEmptyTile() {
-    let count = 0;
     for (let f = 0; f < filas; f++) {
         for (let c = 0; c < columnas; c++) {
             if (board[f][c] == 0) { 
@@ -214,4 +219,28 @@ function hasEmptyTile() {
         }
     }
     return false;
+}
+
+
+function moves() {
+    if (!hasEmptyTile()) { //si es falso, sale
+        
+        return;
+    }
+    contador++;
+    sld = document.getElementById("salida");
+    sld.innerHTML = contador;
+}
+
+function tilesOnBoard() {
+    for (let f = 0; f < filas; f++) {
+        for (let c = 0; c < columnas; c++) {
+            if (board[f][c] != 0) { 
+                tiles ++;
+            }
+        }
+    }
+    sld = document.getElementById("piezas");
+    sld.innerHTML = tiles;
+    tiles = 0;
 }
