@@ -2,48 +2,9 @@ var board;
 var score = 0;
 var filas = 4;
 var columnas = 4;
-var contador = 0;
-var tiles = 0;
-
-var Interval;
-var seconds = 00; 
-var tens = 00; 
 
 window.onload = function() {
     setGame();
-
-    var appendTens = document.getElementById("tens")
-    var appendSeconds = document.getElementById("seconds")
-
-    document.addEventListener("keyup", function(event) {
-        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown')  {
-            if (!hasEmptyTile()) { //si es falso, sale, para parar el tiempo
-                clearInterval(Interval);
-                return;
-            }
-            clearInterval(Interval);
-            Interval = setInterval(startTimer, 10);           
-        }
-    });
-    
-    function startTimer() {
-        tens++; 
-        if(tens <= 9){
-            appendTens.innerHTML = "0" + tens;
-        }
-        if (tens > 9){
-            appendTens.innerHTML = tens;
-        } 
-        if (tens > 99) {
-            seconds++;
-            appendSeconds.innerHTML = "0" + seconds;
-            tens = 0;
-            appendTens.innerHTML = "0" + 0;
-        }
-        if (seconds > 9){
-            appendSeconds.innerHTML = seconds;
-        }  
-    }
 }
 
 function setGame() {
@@ -82,34 +43,29 @@ function updateTile(tile, num) {
             tile.classList.add("x8192");
         }                
     }
+    tile.classList.remove("bounceIn")
+    tile.offsetWidth
+    tile.classList.add("bounceIn")
 }
 
 document.addEventListener('keyup', (e) => {
     if (e.code == "ArrowLeft") {
         slideLeft();
-        setTwo();    
-        moves();
-        
-
+        setTwo();
     }
     else if (e.code == "ArrowRight") {
         slideRight();
-        setTwo();      
-        moves();
+        setTwo();
     }
     else if (e.code == "ArrowUp") {
         slideUp();
-        setTwo();      
-        moves();
+        setTwo();
+
     }
     else if (e.code == "ArrowDown") {
-        moves();
         slideDown();
         setTwo();
-        
     }
-
-    tilesOnBoard();
     document.getElementById("score").innerText = score;
 })
 
@@ -187,12 +143,17 @@ function slideDown() {
             let tile = document.getElementById(f.toString() + "-" + c.toString());
             let num = board[f][c];
             updateTile(tile, num);
+            tile.classList.remove("tada")
+            tile.offsetWidth
+            tile.classList.add("tada")
+
         }
     }
+    
 }
 
 function setTwo() {
-    if (!hasEmptyTile()) { //si es falso, sale
+    if (!hasEmptyTile()) {
         return;
     }
     let found = false;
@@ -205,11 +166,15 @@ function setTwo() {
             tile.innerText = "2";
             tile.classList.add("x2");
             found = true;
+            tile.classList.remove("fadeInDown")
+            tile.offsetWidth
+            tile.classList.add("fadeInDown")
         }
     }
 }
 
 function hasEmptyTile() {
+    let count = 0;
     for (let f = 0; f < filas; f++) {
         for (let c = 0; c < columnas; c++) {
             if (board[f][c] == 0) { 
@@ -220,26 +185,20 @@ function hasEmptyTile() {
     return false;
 }
 
-
-function moves() {
-    if (!hasEmptyTile()) { //si es falso, sale
-        
-        return;
+function myMove(tile) {
+    window.alert("diavolo")
+    let id = null;
+    const elem = tile;
+    let pos = 0;
+    clearInterval(id);
+    id = setInterval(frame, 5);
+    function frame() {
+      if (pos == 350) {
+        clearInterval(id);
+      } else {
+        pos++;
+        elem.style.top = pos + 'px';
+        elem.style.left = pos + 'px';
+      }
     }
-    contador++;
-    sld = document.getElementById("salida");
-    sld.innerHTML = contador;
-}
-
-function tilesOnBoard() {
-    for (let f = 0; f < filas; f++) {
-        for (let c = 0; c < columnas; c++) {
-            if (board[f][c] != 0) { 
-                tiles ++;
-            }
-        }
-    }
-    sld = document.getElementById("piezas");
-    sld.innerHTML = tiles;
-    tiles = 0;
-}
+  }
