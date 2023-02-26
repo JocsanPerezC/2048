@@ -1,33 +1,23 @@
 var board;
 var score = 0;
 var filas = 4;
-var columna = 4;
+var columnas = 4;
 
-
-var un_mute = document.getElementById('un-mute');
-
-function toggleMute() {
-    var myAudio = new myAudio('audio_file.mp3');
-    myAudio.muted = !myAudio.muted;
-}
-
-window.onload = function () {
+window.onload = function() {
     setGame();
-    //var audio = new Audio('audio_file.mp3');
-    //audio.play();
-    
 }
 
 function setGame() {
+
     board = [
         [0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0]
-    ];
+    ]
 
     for (let f = 0; f < filas; f++) {
-        for (let c = 0; c < columna; c++) {
+        for (let c = 0; c < columnas; c++) {
             let tile = document.createElement("div");
             tile.id = f.toString() + "-" + c.toString();
             let num = board[f][c];
@@ -38,6 +28,7 @@ function setGame() {
 
     setTwo();
     setTwo();
+
 }
 
 function updateTile(tile, num) {
@@ -47,10 +38,10 @@ function updateTile(tile, num) {
     if (num > 0) {
         tile.innerText = num.toString();
         if (num <= 4096) {
-            tile.classList.add("x" + num.toString());
+            tile.classList.add("x"+num.toString());
         } else {
             tile.classList.add("x8192");
-        }
+        }                
     }
 }
 
@@ -75,63 +66,61 @@ document.addEventListener('keyup', (e) => {
     document.getElementById("score").innerText = score;
 })
 
-function filterZero(filas){
-    return filas.filter(num => num != 0); 
+function filterZero(fila){
+    return fila.filter(num => num != 0); 
 }
 
-function slide(filas) {
+function slide(fila) {
     //[0, 2, 2, 2] 
-    filas = filterZero(filas); //[2, 2, 2]
-    for (let i = 0; i < filas.length-1; i++){
-        if (filas[i] == filas[i+1]) {
-            filas[i] *= 2;
-            filas[i+1] = 0;
-            score += filas[i];
+    fila = filterZero(fila); //[2, 2, 2]
+    for (let i = 0; i < fila.length-1; i++){
+        if (fila[i] == fila[i+1]) {
+            fila[i] *= 2;
+            fila[i+1] = 0;
+            score += fila[i];
         }
     } //[4, 0, 2]
-    filas = filterZero(filas); //[4, 2]
-   
-    
-    while (filas.length < columna) {
-        filas.push(0);
+    fila = filterZero(fila); //[4, 2]
+    while (fila.length < columnas) {
+        fila.push(0);
     } //[4, 2, 0, 0]
-    return filas;
+    return fila;
 }
 
 function slideLeft() {
-    for (let r = 0; r < filas; r++) {
-        let filas = board[r];
-        filas = slide(filas);
-        board[r] = filas;
-        for (let c = 0; c < columna; c++){
-            let tile = document.getElementById(r.toString() + "-" + c.toString());
-            let num = board[r][c];
+    for (let f = 0; f < filas; f++) {
+        let fila = board[f];
+        fila = slide(fila);
+        board[f] = fila;
+        for (let c = 0; c < columnas; c++){
+            let tile = document.getElementById(f.toString() + "-" + c.toString());
+            let num = board[f][c];
             updateTile(tile, num);
         }
     }
 }
 
 function slideRight() {
-    for (let r = 0; r < filas; r++) {
-        let filas = board[r];         //[0, 2, 2, 2]
-        filas.reverse();              //[2, 2, 2, 0]
-        filas = slide(filas)            //[4, 2, 0, 0]
-        board[r] = filas.reverse();   //[0, 0, 2, 4];
-        for (let c = 0; c < columna; c++){
-            let tile = document.getElementById(r.toString() + "-" + c.toString());
-            let num = board[r][c];
+    for (let f = 0; f < filas; f++) {
+        let fila = board[f];         //[0, 2, 2, 2]
+        fila.reverse();              //[2, 2, 2, 0]
+        fila = slide(fila)            //[4, 2, 0, 0]
+        board[f] = fila.reverse();   //[0, 0, 2, 4];
+        for (let c = 0; c < columnas; c++){
+            let tile = document.getElementById(f.toString() + "-" + c.toString());
+            let num = board[f][c];
             updateTile(tile, num);
         }
     }
 }
 
 function slideUp() {
-    for (let c = 0; c < columna; c++) {
-        let filas = [board[0][c], board[1][c], board[2][c], board[3][c]];
-        filas = slide(filas);
+    for (let c = 0; c < columnas; c++) {
+        let fila = [board[0][c], board[1][c], board[2][c], board[3][c]];
+        fila = slide(fila);
 
         for (let r = 0; r < filas; r++){
-            board[r][c] = filas[r];
+            board[r][c] = fila[r];
             let tile = document.getElementById(r.toString() + "-" + c.toString());
             let num = board[r][c];
             updateTile(tile, num);
@@ -140,19 +129,20 @@ function slideUp() {
 }
 
 function slideDown() {
-    for (let c = 0; c < columna; c++) {
-        let filas = [board[0][c], board[1][c], board[2][c], board[3][c]];
-        filas.reverse();
-        filas = slide(filas);
-        filas.reverse();
+    for (let c = 0; c < columnas; c++) {
+        let fila = [board[0][c], board[1][c], board[2][c], board[3][c]];
+        fila.reverse();
+        fila = slide(fila);
+        fila.reverse();
 
-        for (let r = 0; r < filas; r++){
-            board[r][c] = filas[r];
-            let tile = document.getElementById(r.toString() + "-" + c.toString());
-            let num = board[r][c];
+        for (let f = 0; f < filas; f++){
+            board[f][c] = fila[f];
+            let tile = document.getElementById(f.toString() + "-" + c.toString());
+            let num = board[f][c];
             updateTile(tile, num);
         }
     }
+    tile.slideInDown;
 }
 
 function setTwo() {
@@ -161,13 +151,11 @@ function setTwo() {
     }
     let found = false;
     while (!found) {
-      
-
-        let r = Math.floor(Math.random() * filas);
-        let c = Math.floor(Math.random() * columna);
-        if (board[r][c] == 0) {
-            board[r][c] = 2;
-            let tile = document.getElementById(r.toString() + "-" + c.toString());
+        let f = Math.floor(Math.random() * filas);
+        let c = Math.floor(Math.random() * columnas);
+        if (board[f][c] == 0) {
+            board[f][c] = 2;
+            let tile = document.getElementById(f.toString() + "-" + c.toString());
             tile.innerText = "2";
             tile.classList.add("x2");
             found = true;
@@ -177,14 +165,12 @@ function setTwo() {
 
 function hasEmptyTile() {
     let count = 0;
-    for (let r = 0; r < filas; r++) {
-        for (let c = 0; c < columna; c++) {
-            if (board[r][c] == 0) { 
+    for (let f = 0; f < filas; f++) {
+        for (let c = 0; c < columnas; c++) {
+            if (board[f][c] == 0) { 
                 return true;
             }
         }
     }
     return false;
 }
-
-

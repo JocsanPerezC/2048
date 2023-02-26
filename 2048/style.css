@@ -1,107 +1,99 @@
 body{
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
 }
 
 hr{
-    width: 500px;
+  width: 500px;
 }
 
-#board{
-    width: 400px;
-    height: 400px;
-    background-color: #cdc1b5;
-    border: 6px solid #bbada0;
 
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
+
+#board{
+  width: 400px;
+  height: 400px;
+  background-color: #b8e4c7;
+  border: 6px solid #555;
+
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 audio{
-    font-size: 40px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
 .tile{
-    width: 90px;
-    height: 90px;
-    border: 5px solid #bbada0;
-
-    font-size: 40px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 3px;
+  border: 5px solid #555;
+  border-radius: 7px;
+  font-size: 40px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*Colores de los cuadros*/
 .x2 {
-    background-color: rgb(225, 0, 255);
-    color: #727371;
+  background: #e93a63;
+  color: setFontColor(#EF476F);
 }
 
 .x4 {
-    background-color: rgba(182, 2, 206, 0.925);
-    color: #727371;
+  background: #7274ee;
+  color: setFontColor(#7274ee);
 }
+
 .x8 {
-    background-color: rgb(143, 0, 161);
-    color: #727371;
+  background:#1B9AAA;
+  color: setFontColor(#1B9AAA);
 }
 
 .x16{
-    background-color: #6e0065;
-    color: white;
+  background:#06D6A0;
+  color: setFontColor(#06D6A0);
 }
 
-.x32{
-    background-color: #69004a;
-    color: white;
+.x32 {
+  background: #f892aa;
+  color: setFontColor(#f892aa);
 }
 
-.x64{
-    background-color: #3a0037;
-    color: white;
+.x64 {
+  background: #22c0d4;
+  color: setFontColor(#22c0d4);
 }
 
-.x128{
-    background-color: #240021;
-    color: white;
+.x128 {
+  background: #1af9bf;
+  color: setFontColor(#1af9bf);
 }
 
-.x256{
-    background-color: #16001b;
-    color: white;
+.x256 {
+  background:#ffdc8b;
+  color: setFontColor(#ffdc8b);
 }
 
-.x512{
-    background-color: #020002;
-    color: white;
+.x512 {
+  background: #ec1044;
+  color: setFontColor(#ec1044);
 }
 
-.x1024{
-    background-color: #4400fd;
-    color: white;
+.x1024 {
+  background: darken(#167b88);
+  color: setFontColor(#167b88);
 }
 
-.x2048{
-    background-color: #2000af;
-    color: white;
+.x2048 {
+  background: darken(#06D6A0);
+  color: setFontColor(#27b189);
 }
-
-.x4096 {
-    background-color: #0f0052;
-    color: white;
-}
-
-.x8192 {
-    background-color: #04002c;
-    color: white;
-}
-
-
