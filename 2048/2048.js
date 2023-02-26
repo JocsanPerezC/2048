@@ -189,7 +189,6 @@ function slideDown() {
             updateTile(tile, num);
         }
     }
-    tile.slideInDown;
 }
 
 function setTwo() {
