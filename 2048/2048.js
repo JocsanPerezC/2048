@@ -2,9 +2,41 @@ var board;
 var score = 0;
 var filas = 4;
 var columnas = 4;
-
+var contador = 0;
 window.onload = function() {
     setGame();
+
+    var seconds = 00; 
+    var tens = 00; 
+    var appendTens = document.getElementById("tens")
+    var appendSeconds = document.getElementById("seconds")
+    var Interval ;
+
+    document.addEventListener("keyup", function(event) {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown')  {
+            clearInterval(Interval);
+            Interval = setInterval(startTimer, 10);
+        }
+    });
+    
+    function startTimer () {
+        tens++; 
+        if(tens <= 9){
+            appendTens.innerHTML = "0" + tens;
+        }
+        if (tens > 9){
+            appendTens.innerHTML = tens;
+        } 
+        if (tens > 99) {
+            seconds++;
+            appendSeconds.innerHTML = "0" + seconds;
+            tens = 0;
+            appendTens.innerHTML = "0" + 0;
+        }
+        if (seconds > 9){
+            appendSeconds.innerHTML = seconds;
+        }  
+    }
 }
 
 function setGame() {
@@ -49,20 +81,29 @@ document.addEventListener('keyup', (e) => {
     if (e.code == "ArrowLeft") {
         slideLeft();
         setTwo();
+
     }
     else if (e.code == "ArrowRight") {
         slideRight();
         setTwo();
+        
     }
     else if (e.code == "ArrowUp") {
         slideUp();
         setTwo();
+        
 
     }
     else if (e.code == "ArrowDown") {
         slideDown();
         setTwo();
+        
     }
+
+    contador++; //para sumar los movientos
+    sld = document.getElementById("salida");
+    sld.innerHTML = contador;
+
     document.getElementById("score").innerText = score;
 })
 
