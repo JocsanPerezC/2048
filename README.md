@@ -1,7 +1,5 @@
 # algoritmos-tarea1-2048
 
-![2048](./assets/2048_screenshot.png)
-
 ## Descripción
 Este proyecto es una recreación del popular juego de rompecabezas 2048 en una página web. El juego se desarrolla en un tablero 4x4 y el objetivo es combinar las casillas para obtener la casilla con el número 2048.
 
